@@ -92,6 +92,7 @@ function buildCharts(sample) {
 
     // 9. Create the layout for the bar chart. 
     var barLayout = {
+      paper_bgcolor: "lightgray",
       title: "<b>Top 10 Bacteria Cultures Found</b>"
     };
 
@@ -115,8 +116,9 @@ function buildCharts(sample) {
 
     // 2. Create the layout for the bubble chart.
     var bubbleLayout = {
+      paper_bgcolor: "lightgray",
       title: "<b>Bacteria Cultures per Sample</b>",
-      xaxis: {title: "OTU ID"},
+      xaxis: {title: "<b>OTU ID</b>"},
       hovermode: "closest"
     };
 
@@ -154,6 +156,7 @@ function buildCharts(sample) {
 
     // Create the layout for the guage chart.
     var gaugeLayout = {
+      paper_bgcolor: "lightgray",
       title: "<b>Belly Button Washing Frequency</b>",
       width: 600,
       height: 400,
