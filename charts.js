@@ -19,7 +19,7 @@ function init() {
     buildMetadata(firstSample);
 
   });
-  
+
 }
 
 // Initialize the dashboard
@@ -92,11 +92,11 @@ function buildCharts(sample) {
 
     // 9. Create the layout for the bar chart. 
     var barLayout = {
-      title: "Top 10 Bacteria Cultures Found"
+      title: "<b>Top 10 Bacteria Cultures Found</b>"
     };
 
     // 10. Use Plotly to plot the data with the layout. 
-    Plotly.newPlot("bar", barData, barLayout)
+    Plotly.newPlot("bar", barData, barLayout);
 
     // 1. Create the trace for the bubble chart.
     var traceBubble = {
@@ -115,13 +115,58 @@ function buildCharts(sample) {
 
     // 2. Create the layout for the bubble chart.
     var bubbleLayout = {
-      title: "Bacteria Cultures per Sample",
+      title: "<b>Bacteria Cultures per Sample</b>",
       xaxis: {title: "OTU ID"},
       hovermode: "closest"
     };
 
     // 3. Use Plotly to plot the data with the layout.
     Plotly.newPlot("bubble", bubbleData, bubbleLayout);
+
+    // Create guage chart trace (steps 1-3)
+    // Create a variable that filters the metadata for the object with the desired sample ID.
+    var filterMetadataArray = data.metadata.filter( (x) => parseFloat(x.id) == sample)[0];
+    
+    // Create a variable for the washing fequency
+    var wfreq = filterMetadataArray.wfreq;
+
+    // Step 4: Create trace variable.
+    var traceGauge = {
+      domain: { x: [0, 1], y: [0, 1] },
+      value: wfreq,
+      title: { text: "Scrubs per week" },
+      type: "indicator",
+      mode: "gauge+number",
+      gauge: {
+        bar: {color: "black" },
+        axis: { range: [null, 10] },
+        steps: [
+          { range: [0, 2], color: "red" },
+          { range: [2, 4], color: "orange" },
+          { range: [4, 6], color: "yellow" },
+          { range: [6, 8], color: "lightgreen" },
+          { range: [8, 10], color: "green" }
+        ],
+      }
+    };
+    
+    var gaugeData = [traceGauge];
+
+    // Create the layout for the guage chart.
+    var gaugeLayout = {
+      title: "<b>Belly Button Washing Frequency</b>",
+      width: 600,
+      height: 400,
+      margin: {
+        t: 125,
+        b: 75,
+        l: 100,
+        r: 100
+      }
+    };
+
+    // Use Plotly to plot the data with the layout.
+    Plotly.newPlot("gauge", gaugeData, gaugeLayout);
   
   });
 
